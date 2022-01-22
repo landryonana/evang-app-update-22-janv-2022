@@ -141,6 +141,14 @@ table#person-evang thead{
 }
 
 
+.form-btn-select{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
 
 
 

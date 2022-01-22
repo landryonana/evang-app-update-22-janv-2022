@@ -179,16 +179,16 @@ def get_personne_evang_all_by__year(annee):
 def get_form_set(type_opera, form_nbre):
     form_set = None
     if type_opera=="participants":
-        form_set = modelformset_factory(Participant, fields=('nom_et_prenom', 'sexe',), extra=form_nbre)
+        form_set = modelformset_factory(Participant, fields=('nom_et_prenom', 'sexe',), extra=form_nbre, can_delete=True)
     elif type_opera=="personnes":
-        form_set = modelformset_factory(Person, form=PersonForm, extra=form_nbre)
+        form_set = modelformset_factory(Person, form=PersonForm, extra=form_nbre, can_delete=True)
     elif type_opera=="sites":
         form_set = modelformset_factory(Site, fields=('nom_site_evangelisation', 'description',
-        'image'), extra=form_nbre)
+        'image'), extra=form_nbre, can_delete=True)
     elif type_opera=="évangelisations":
         form_set = modelformset_factory(Evangelisation, fields=(
             'day', 'heure_de_debut', 'heure_de_fin', 
-            'site', 'boss', 'observation'), extra=form_nbre)
+            'site', 'boss', 'observation'), extra=form_nbre, can_delete=True)
     return form_set
 
 

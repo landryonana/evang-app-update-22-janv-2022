@@ -133,6 +133,8 @@ def user_register(request):
             #set password
             new_user.set_password(form.cleaned_data['password'])
             #save user or create new user
+
+            print('===========user_register****new_user', new_user.image.url)
             new_user.save()
             
             #create new History of new user
@@ -149,14 +151,22 @@ def user_register(request):
                 content_object=f"COMPTE:::Utilisateur:: profile a: {new_user}",
                 action_type="ajout de"
             )
-            participant = Participant(nom_et_prenom=new_user.first_name, sexe=new_user.profile.sexe, author=request.user)
-            participant.save()
-            #create new History of new particioant
-            History.objects.create(
-                user=request.user,
-                content_object=f"Participant:: {participant}",
-                action_type="ajout de"
-            )
+            try:
+                participant = Participant(
+                    nom_et_prenom=new_user.first_name, 
+                    sexe=new_user.profile.sexe, 
+                    author=request.user
+                )
+                participant.save()
+                #create new History of new particioant
+                History.objects.create(
+                    user=request.user,
+                    content_object=f"Participant:: {participant}",
+                    action_type="ajout de"
+                )
+            except:
+                pass
+            
             messages.success(request, f"Vous avez ajouté <b>{new_user}</b> avec success")
             return redirect('user_comptes')
             
